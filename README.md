@@ -121,7 +121,24 @@ This command permanently deletes a file from the S3 bucket. All you have to do i
 
 ### /summarise-document
 
+Using the summarise document command large documents can be converted into images
+
 1. Get the file name from the **command['text']** parameter.
+2. If the file if found, using the `JSON.GET` command we get the file's name.
+3. Download the pdf or png file locally from S3 bucket
+4. Extract the text using AWS Textract.
+5. The extracted text is summarised using Hugging face transformers summarisation pipeline. The text summary is also added to the JSON document for the file using `JSON.SET` command.
+6. A post request is then sent to the /create-image on the nodejs backend.
+7. The image that is returned is saved to the S3 bucket and sent back to Slack.
+8. The image URL is also added to the JSON document using `JSON.SET` command.
+
+Here are a few examples of the images with document summary for the [Amazon 2020 share holder letter](https://s2.q4cdn.com/299287126/files/doc_financials/2021/ar/Amazon-2020-Shareholder-Letter-and-1997-Shareholder-Letter.pdf)
+
+<img src="./photos/sample-templates/amazon-black.png">
+<img src="./photos/sample-templates/amazon-blue.png">
+<img src="./photos/sample-templates/amazon-white.png">
+
+### Basic Installation Instructions
 
 <br>
 <a href='https://www.freepik.com/vectors/illustrations'>Illustrations vector created by stories - www.freepik.com</a>
