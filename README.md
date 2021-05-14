@@ -14,18 +14,25 @@
   <a href="">
     <img src="./photos/Reeko_Slack_Bot.png" alt="Logo" width="600" height="450">
   </a>
-  <h1 align="center">Reeko</h1>
-  <h4 align="center"></h4>
-  <p align="center"></p>
+  <h1 align="center">Reeko Slack Bot</h1>
 </p>
-<br>
+
 <br/>
+
+With 10+ million daily active users and millions of file shared everyday Slack is where collaboration happens. Using Reeko you can find files, download them or delete them permanently from S3 bucket without leaving Slack or writing a single line of code. In the digital age information is abundant and our attention spans have become much shorter.
+Using advanced Natural Language Processing (NLP) and Natural Language Understanding (NLU) techniques, Reeko extracts all the text from the long and boring documents outputs the summary as an image. This way you don't even have to open the document to know what is inside of it!
+
+<img src="./photos/Summarise_Document.gif" alt="Logo">
+
+### Features
 
 ### Document Summarisation
 
+Document Summarization is the task of rewriting a document into its shorter form while still retaining its important content. With the help of the `/summarise-document filname` you can summarise any documents
+
 ### File Syncing and Data Backup inside Slack
 
-S3 Slack Bot enables users to access files in your S3 bucket directly from Slack using _Slash commands_. By using simple commands like `/s3-get filename` and `/s3-delete filename` we can find or delete files. Whenever a new file is shared on any public channel it is automatically added to the S3 test bucket, ensuring that all your slack files are safe in case a teammate accidently deletes a file that you need.
+Reeko Slack Bot enables users to access files in your S3 bucket directly from Slack using _Slash commands_. By using simple commands like `/s3-get filename` and `/s3-delete filename` we can find or delete files. Whenever a new file is shared on any public channel it is automatically added to the S3 test bucket, ensuring that all your slack files are safe in case a teammate accidently deletes a file that you need.
 
 ### File Searching
 
