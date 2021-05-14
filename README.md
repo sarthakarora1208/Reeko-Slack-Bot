@@ -47,7 +47,7 @@ Most of the time we don't know the exact name of the file we are looking for. We
 
 ## Architecture Diagram
 
-  <img src="./photos/Reeko-Slack-Bot-Architecture-Diagram.svg" alt="Logo">
+  <img src="./photos/Reeko-Slack-Bot-Architecture-Diagram.png" alt="Logo">
 
 ## How is it built
 
