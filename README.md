@@ -47,7 +47,7 @@ Most of the time we don't know the exact name of the file we are looking for. We
 
 ## Architecture Diagram
 
-  <img src="./photos/Reeko-Slack-Bot-Architecture-Diagram.png" alt="Logo">
+  <img src="./photos/Reeko-Slack-Bot-Architecture-Diagram.svg" alt="Logo">
 
 ## How is it built
 
@@ -64,7 +64,7 @@ We have used 2 Redis Modules.
 - [RedisJSON](https://oss.redislabs.com/redisjson/)
 - [RediSearch](https://oss.redislabs.com/redisearch/)
 
-Initialising RediSearch in redissearch_connector.py. Creating an index with the name `file_index`.
+Initialising RediSearch in redisearch_connector.py. Creating an index with the name `file_index`.
 
 ```py
 from redisearch import Client, TextField, AutoCompleter, Suggestion
@@ -86,6 +86,42 @@ class RedisJsonConnector():
         self.rj = Client(decode_responses=True)
 
 ```
+
+## File shared on Slack
+
+Whenever a new file is shared in any public slack channel the <a href="https://api.slack.com/events/file_shared#:~:text=The%20file_shared%20event%20is%20sent,the%20files.info%20API%20method."> <em>file_share event</em></a> is sent to the Slack Bolt app. Firstly the file name is added as suggestion using the `FT.SUGADD` command in RediSearch, the file data like name, created, timestamp, mimetype, filetype, size, summary and image file path are added using the `JSON.SET` command.
+The file is then stored on the S3 bucket as an object with the key as the filename.
+
+```json
+file_data = {
+  "file_id": "F021THCTFJ7",
+  "file_name": "amazonpdf",
+  "created": 1620902755,
+  "timestamp": 1620902755,
+  "mimetype": "application/pdf",
+  "filetype": "pdf",
+  "user_id": "U01U4DV4C8J",
+  "size": 345142,
+  "summary": "",
+  "image_file_path": ""
+}
+```
+
+### /s3-get
+
+After fetching the filename from the **command['text']** parameter we check if a the file exists using the `check_if_document_exists` function in `redisearch_connector.py` file. If the document doesn't exist it returns false and nothing is done. If the file if found, using the `JSON.GET` command we get the file's name and then download the file from S3. The downloaded file is sent back as a direct message in Slack.
+
+### /s3-search
+
+This command opens up a modal inside of Slack with a search bar, the user is suggested the file names depending on whatever text is written in. For example if the bucket has documents like abc.csv, abcd.csv, abcdef.csv upon typing `abc` we get will get these 3 results as a list from the `FT.SEARCH` command. After the user chooses one of the file from the suggestion the file is downloaded and sent back to slack.
+
+### /s3-delete
+
+This command permanently deletes a file from the S3 bucket. All you have to do is get the filename from **command['text']** parameter. The file data is deleted from RedisJson using the `JSON.DEL` command and it is removed from RediSearch's suggestions using the `FT.SUGDEL` command. Users are informed once the file is successfully deleted
+
+### /summarise-document
+
+1. Get the file name from the **command['text']** parameter.
 
 <br>
 <a href='https://www.freepik.com/vectors/illustrations'>Illustrations vector created by stories - www.freepik.com</a>
