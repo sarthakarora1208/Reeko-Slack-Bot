@@ -61,9 +61,13 @@ You need a verified aws account to test the [process_resume.py](./process_resume
 
 You can get your credentials file at ~/.aws/credentials (C:\Users\USER_NAME\.aws\credentials for Windows users) and copy the following lines in the [.env](./.env) file.
 
+Also add your S3 bucket name in the .env file
+
 ```bash
+
 AWS_ACCESS_KEY_ID="YOUR_ACCESS_KEY_ID"
-AWS_SECRET_ACCESS_KEY="YOUR_SECRET_ACCESS_KEY
+AWS_SECRET_ACCESS_KEY="YOUR_SECRET_ACCESS_KEY"
+BUCKET_NAME="YOUR_BUCKET_NAME"
 
 ```
 
