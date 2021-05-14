@@ -5,18 +5,18 @@
     "rank": "21",
     "type": "Full App",
     "contributed_by": "Community",
-    "repo_url": "",
+    "repo_url": "https://github.com/sarthakarora1208/Reeko-Slack-Bot",
     "download_url": "",
     "hosted_url": "",
     "quick_deploy": "",
     "deploy_buttons": [],
     "language": ["Javascript","Python"],
-    "redis_commands": [],
+    "redis_commands": ["FT.SUGADD","FT.SEARCH","FT.SUGDEL","HSET","JSON.SET","JSON.GET","JSON.DEL"],
     "redis_features": ["storage"],
     "redis_modules": ["RedisJSON","RediSearch"],
     "app_image_urls": ["https://bucket-1234.s3.amazonaws.com/Reeko_Slack_Bot.png"],
     "youtube_url": "",
     "special_tags": ["Hackathon"],
     "verticals": ["Technology"],
-    "markdown": ""
+    "markdown": "https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/README.md"
 }
