@@ -1,0 +1,22 @@
+{
+    "app_name": "Reeko Slack Bot",
+    "description": "Summarise documents on slack",
+    "hidden": "false",
+    "rank": "21",
+    "type": "Full App",
+    "contributed_by": "Community",
+    "repo_url": "",
+    "download_url": "",
+    "hosted_url": "",
+    "quick_deploy": "",
+    "deploy_buttons": [],
+    "language": ["Javascript","Python"],
+    "redis_commands": [],
+    "redis_features": ["storage"],
+    "redis_modules": ["RedisJSON","RediSearch"],
+    "app_image_urls": ["https://bucket-1234.s3.amazonaws.com/Reeko_Slack_Bot.png"],
+    "youtube_url": "",
+    "special_tags": ["Hackathon"],
+    "verticals": ["Technology"],
+    "markdown": ""
+}
