@@ -7,7 +7,7 @@
 [![forthebadge](https://forthebadge.com/images/badges/uses-js.svg)](https://forthebadge.com)
 [![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)
 
-![Reeko](./photos/Reeko_Slack_Bot.png)
+![Reeko](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/Reeko_Slack_Bot.png)
 
 # Reeko Slack Bot
 
