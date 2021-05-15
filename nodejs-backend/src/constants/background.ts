@@ -1,0 +1,14 @@
+export const WHITE_PLAIN = 'white-plain.png';
+export const BLACK_PLAIN = 'black-plain.png';
+export const BLUE_PLAIN = 'blue-plain.png';
+export const CHALK_2 = 'chalk-2.jpg';
+export const HISTORY_1 = 'history-1.jpg';
+export const HISTORY_2 = 'history-2.jpg';
+export const BLUE = 'blue.jpg';
+export const PAPER_1 = 'paper-1.jpg';
+export const PAPER_2 = 'paper-2.jpg';
+export const PLANTS = 'plants.jpeg';
+export const TEMPLATE_1 = 'template_1.png';
+export const TEMPLATE_2 = 'template_2.png';
+export const TEMPLATE_3 = 'template_3.png';
+export const TEMPLATE_4 = 'template_4.png';

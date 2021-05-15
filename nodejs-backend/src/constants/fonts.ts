@@ -1,0 +1,20 @@
+// Google Fonts
+export const BANGERS = 'Bangers-Regular.ttf';
+export const CABIN_SKETCH = 'CabinSketch-Regular.ttf';
+export const DANCING_SCRIPT = 'DancingScript-Medium.ttf';
+export const FREDERICKATHE_GREAT = 'FrederickatheGreat-Regular.ttf';
+export const INDIE_FLOWER = 'IndieFlower-Regular.ttf';
+export const JIM_NIGHTSHADE = 'JimNightshade-Regular.ttf';
+export const JUST_ANOTHER_HAND = 'JustAnotherHand-Regular.ttf';
+export const KAVIVANAR = 'Kavivanar-Regular.ttf';
+export const LONDRINA_SKETCH = 'LondrinaSketch-Regular.ttf';
+export const MAJOR_MONO_DISPLAY = 'MajorMonoDisplay-Regular.ttf';
+export const MONOTON = 'Monoton-Regular.ttf';
+export const PRESS_START_2P = 'PressStart2P-Regular.ttf';
+export const ROBOTO_REGULAR = 'Roboto-Regular.ttf';
+export const SPECIAL_ELITE = 'SpecialElite-Regular.ttf';
+export const VARELA_ROUND = 'VarelaRound-Regular.ttf';
+export const VAST_SHADOW = 'VastShadow-Regular.ttf';
+export const ZILLA_SLAB = 'ZillaSlab-Bold.ttf';
+export const ZILLA_SLAB_HIGHLIGHT = 'ZillaSlabHighlight-Bold.ttf';
+export const OREGANO = 'Oregano-Regular.ttf';
