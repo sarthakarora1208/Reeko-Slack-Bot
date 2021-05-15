@@ -16,7 +16,7 @@ Video Link: [https://youtu.be/sNNbtyWloRo](https://youtu.be/sNNbtyWloRo)
 
 With 10+ million daily active users and millions of file shared everyday Slack is where collaboration happens. Using Reeko you can find files, download them or delete them permanently from S3 bucket without leaving Slack or writing a single line of code. Everyday so many files are shared on Slack and we may loose track of the file we need. Using advanced Natural Language Processing (NLP) and Natural Language Understanding (NLU) techniques, Reeko extracts all the text from the long and boring documents outputs the summary as an image. This way you don't even have to open the document to know what is inside of it!. Most of the time we don't know the exact name of the file we are looking for in and we need autocomplete to figure out the exact file name for us, Reeko has a file search engine built right into Slack that helps you find any file on your S3 bucket.
 
-[![summarise_document](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/Summarise_DocumentA.gif)](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/Summarise_DocumentA.gif)
+[![summarise_document](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/Summarise_Document.gif)](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/Summarise_Document.gif)
 
 ## Features
 
@@ -127,9 +127,9 @@ Using the summarise document command large documents can be converted into image
 
 Here are a few examples of the images with document summary for the [Amazon 2020 share holder letter](https://s2.q4cdn.com/299287126/files/doc_financials/2021/ar/Amazon-2020-Shareholder-Letter-and-1997-Shareholder-Letter.pdf)
 
-![amazon-black](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/sample-templates/amazon-black.png)
-![amazon-blue](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/sample-templates/amazon-blue.png)
-![amazon-white](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/sample-templates/amazon-white.png)
+[![amazon-black](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/sample-templates/amazon-black.png)](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/sample-templates/amazon-black.png)
+[![amazon-blue](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/sample-templates/amazon-blue.png)](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/sample-templates/amazon-blue.png)
+[![amazon-white](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/sample-templates/amazon-white.png)](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/sample-templates/amazon-blue.png)
 
 ## Basic Installation Instructions
 
