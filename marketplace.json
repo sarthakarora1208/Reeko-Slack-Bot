@@ -15,7 +15,7 @@
     "redis_features": ["storage"],
     "redis_modules": ["RedisJSON","RediSearch"],
     "app_image_urls": ["https://bucket-1234.s3.amazonaws.com/Reeko_Slack_Bot.png"],
-    "youtube_url": "https://youtu.be/sNNbtyWloRo",
+    "youtube_url": "https://youtu.be/XYbWfOSYmyM",
     "special_tags": ["Hackathon"],
     "verticals": ["Technology"],
     "markdown": "https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/README.md"
