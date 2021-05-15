@@ -1,4 +1,5 @@
 nodejs-backend/node_modules
 nodejs-backend/.DS_Store
 python-backend/env
+python-backend/__pycache__
 docs/
