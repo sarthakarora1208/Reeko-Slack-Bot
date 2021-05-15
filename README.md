@@ -11,7 +11,7 @@
 
 # Reeko Slack Bot
 
-Video Link: [https://youtu.be/sNNbtyWloRo](https://youtu.be/sNNbtyWloRo)
+Video Link: [https://youtu.be/XYbWfOSYmyM](https://youtu.be/XYbWfOSYmyM)
 <br/>
 
 With 10+ million daily active users and millions of file shared everyday Slack is where collaboration happens. Using Reeko you can find files, download them or delete them permanently from S3 bucket without leaving Slack or writing a single line of code. Everyday so many files are shared on Slack and we may loose track of the file we need. Using advanced Natural Language Processing (NLP) and Natural Language Understanding (NLU) techniques, Reeko extracts all the text from the long and boring documents outputs the summary as an image. This way you don't even have to open the document to know what is inside of it!. Most of the time we don't know the exact name of the file we are looking for in and we need autocomplete to figure out the exact file name for us, Reeko has a file search engine built right into Slack that helps you find any file on your S3 bucket.
@@ -114,16 +114,19 @@ This command permanently deletes a file from the S3 bucket. All you have to do i
 
 ### /summarise-document
 
+[![Summary](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/screenshots/summary.gif)](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/screenshots/summary.gif)
+
 Using the summarise document command large documents can be converted into images
 
 1. Get the file name from the **command['text']** parameter.
 2. If the file if found, using the `JSON.GET` command we get the file's name.
 3. Download the pdf or png file locally from S3 bucket
 4. Extract the text using AWS Textract.
-5. The extracted text is summarised using Hugging face transformers summarisation pipeline. The text summary is also added to the JSON document for the file using `JSON.SET` command.
-6. A post request is then sent to the /create-image on the nodejs backend.
-7. The image that is returned is saved to the S3 bucket and sent back to Slack.
-8. The image URL is also added to the JSON document using `JSON.SET` command.
+5. The extracted text is summarised using Hugging face transformers summarisation pipeline. The text summary is also added back to RedisJSON document using `JSON.SET` command.
+6. A post request is then sent to the /create-image on the nodejs backend with the file name and summary text.
+7. An image is generated using a base template
+8. The image that is returned is saved to the S3 bucket and sent back to Slack.
+9. The image URL is also added to the JSON document using `JSON.SET` command.
 
 Here are a few examples of the images with document summary for the [Amazon 2020 share holder letter](https://s2.q4cdn.com/299287126/files/doc_financials/2021/ar/Amazon-2020-Shareholder-Letter-and-1997-Shareholder-Letter.pdf)
 
