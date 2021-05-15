@@ -23,13 +23,17 @@ With 10+ million daily active users and millions of file shared everyday Slack i
 
 <img src="./photos/Summarise_Document.gif" alt="Logo">
 
-</br>
+<br/>
+
+---
+
+<br/>
 
 ## Features
 
 ### Document Summarisation
 
-Document Summarization is the task of rewriting a document into its shorter form while still retaining its important content. With the help of the `/summarise-document filename` you can summarise any documents
+Document Summarization is the task of rewriting a document into its shorter form while still retaining its important content. With the help of the `/summarise-document filename` you can summarise any document. Everything from minutes of the meeting to UNICEF can be shortened.
 
 ### File Syncing and Data Backup inside Slack
 
@@ -37,7 +41,13 @@ Reeko Slack Bot enables users to access files in your S3 bucket directly from Sl
 
 ### File Searching
 
-Most of the time we don't know the exact name of the file we are looking for. We also need to check if the file is actually present in the S3 bucket. Pooling the bucket over and over again to find a file or check for its existence is a computationally expensive and slow operation. To enable faster indexing of all the files on the S3 bucket, there is a layer of RediSearch between the Slack Bot and the S3 bucket. A user can find any file using the `/s3-search` command which opens a file search dialog. RediSearch's autocomplete functionality helps in navigating or guiding the user by prompting them with likely completions and alternatives to the filenames as they are typing it.
+Most of the time we don't know the exact name of the file we are looking for. We also need to check if the file is actually present in the S3 bucket. Pooling the bucket over and over again to find a file or check for its existence is a computationally expensive and slow operation. To enable faster indexing of all the files on the S3 bucket, there is a layer of RediSearch between the Slack Bot and the S3 bucket. A user can find any file using the `/s3-search` command which opens a file search dialog. RediSearch's autocomplete functionality helps in navigating or guiding the user by prompting them with likely completions and alternatives to the filenames as they are typing in.
+
+<br/>
+
+---
+
+<br/>
 
 ## Tech Stack
 
@@ -45,9 +55,21 @@ Most of the time we don't know the exact name of the file we are looking for. We
 - [Python](https://www.python.org/): The [redisjson-py](https://github.com/RedisJSON/redisjson-py) and [redisearch-py](https://github.com/RediSearch/redisearch-py) libraries are used to connect to [**Redis**](https://redis.io) and [Slack Bolt For Python](https://slack.dev/bolt-python/concepts) is a foundational framework that makes it easier to build Slack apps is used to build the chat bot.
 - [Nodejs](https://nodejs.org/en/): Responsible for Image Generation
 
+<br/>
+
+---
+
+<br/>
+
 ## Architecture Diagram
 
   <img src="./photos/Reeko-Slack-Bot-Architecture-Diagram.png" alt="Logo">
+
+<br/>
+
+---
+
+<br/>
 
 ## How is it built
 
@@ -57,12 +79,18 @@ The Slack app listens to all sorts of events happening around your workspace —
 
 Slash commands perform a very simple task: they take whatever text you enter after the command itself (along with some other predefined values), send it to a URL, then accept whatever the script returns and posts it as a Slackbot message to the person who issued the command or in a public channel. Here are the 5 slash commands we use to interact with the Cortx S3 bucket.
 
+<br/>
+
+---
+
+<br/>
+
 ## Redis Usage
 
 We have used 2 Redis Modules.
 
-- [RedisJSON](https://oss.redislabs.com/redisjson/)
-- [RediSearch](https://oss.redislabs.com/redisearch/)
+- [RedisJSON](https://oss.redislabs.com/redisjson/) - For storing file information like filename, summary and image url.
+- [RediSearch](https://oss.redislabs.com/redisearch/) - For searching files in the S3 bucket
 
 Initialising RediSearch in redisearch_connector.py. Creating an index with the name `file_index`.
 
@@ -87,7 +115,7 @@ class RedisJsonConnector():
 
 ```
 
-## File shared on Slack
+### File shared on Slack
 
 Whenever a new file is shared in any public slack channel the <a href="https://api.slack.com/events/file_shared#:~:text=The%20file_shared%20event%20is%20sent,the%20files.info%20API%20method."> <em>file_share event</em></a> is sent to the Slack Bolt app. Firstly the file name is added as suggestion using the `FT.SUGADD` command in RediSearch, the file data like name, created, timestamp, mimetype, filetype, size, summary and image file path are added using the `JSON.SET` command.
 The file is then stored on the S3 bucket as an object with the key as the filename.
@@ -138,7 +166,13 @@ Here are a few examples of the images with document summary for the [Amazon 2020
 <img src="./photos/sample-templates/amazon-blue.png">
 <img src="./photos/sample-templates/amazon-white.png">
 
-### Basic Installation Instructions
+<br/>
+
+---
+
+<br/>
+
+## Basic Installation Instructions
 
 <br>
 <a href='https://www.freepik.com/vectors/illustrations'>Illustrations vector created by stories - www.freepik.com</a>
