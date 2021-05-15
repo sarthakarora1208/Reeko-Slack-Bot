@@ -18,8 +18,6 @@ With 10+ million daily active users and millions of file shared everyday Slack i
 
 ![summarise_document](./photos/Summarise_Document.gif)
 
----
-
 ## Features
 
 ### Document Summarisation
@@ -36,21 +34,15 @@ Most of the time we don't know the exact name of the file we are looking for. We
 
 ## Tech Stack
 
----
-
 - [Slack Block Kit](https://api.slack.com/block-kit): A UI framework for Slack apps that offers a balance of control and flexibility when building experiences.
 - [Python](https://www.python.org/): The [redisjson-py](https://github.com/RedisJSON/redisjson-py) and [redisearch-py](https://github.com/RediSearch/redisearch-py) libraries are used to connect to [**Redis**](https://redis.io) and [Slack Bolt For Python](https://slack.dev/bolt-python/concepts) is a foundational framework that makes it easier to build Slack apps is used to build the chat bot.
 - [Nodejs](https://nodejs.org/en/): Responsible for Image Generation
 
 ## Architecture Diagram
 
----
-
 ![Slack-Bot-Architecture](./photos/Reeko-Slack-Bot-Architecture-Diagram.png)
 
 ## How is it built
-
----
 
 The Project is set up to work in a python3 virtual environment. The Slack app is built using [Bolt for Python](https://slack.dev/bolt-python/concepts) framework. For connecting to the AWS S3 bucket, AWS Comprehend and AWS Textract we use their respective boto3 clients. We connect to RedisSearch using the [Python RedisSearch Client](https://RedisSearch-py.readthedocs.io/en/v7.12.0/).
 
@@ -59,8 +51,6 @@ The Slack app listens to all sorts of events happening around your workspace —
 Slash commands perform a very simple task: they take whatever text you enter after the command itself (along with some other predefined values), send it to a URL, then accept whatever the script returns and posts it as a Slackbot message to the person who issued the command or in a public channel. Here are the 5 slash commands we use to interact with the Cortx S3 bucket.
 
 ## Redis Usage
-
----
 
 We have used 2 Redis Modules.
 
@@ -142,7 +132,5 @@ Here are a few examples of the images with document summary for the [Amazon 2020
 ![amazon-white](./photos/sample-templates/amazon-white.png)
 
 ## Basic Installation Instructions
-
----
 
 [Illustrations vector created by stories - www.freepik.com](https://www.freepik.com/vectors/illustrations)
