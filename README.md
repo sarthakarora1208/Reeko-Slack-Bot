@@ -78,69 +78,98 @@ class RedisJsonConnector():
 
 ```
 
+Creating an index on RediSearch
+
+```bash
+FT.CREATE file-index ON HASH SCHEMA file_name TEXT SORTABLE file_id TEXT created TEXT timestamp TEXT mimetype TEXT filetype TEXT user_id TEXT size
+```
+
 [![1](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/screenshots/1.gif)](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/screenshots/1.gif)
 
 ### File shared on Slack
 
-Whenever a new file is shared in any public slack channel the[**file_share event**](https://api.slack.com/events/file_shared#:~:text=The%20file_shared%20event%20is%20sent,the%20files.info%20API%20method.) is sent to the Slack Bolt app. Firstly the file name is added as suggestion using the `FT.SUGADD` command in RediSearch, the file data like name, created, timestamp, mimetype, filetype, size, summary and image file path are added using the `JSON.SET` command.
+Whenever a new file is shared in any public slack channel the [**file_share event**](https://api.slack.com/events/file_shared#:~:text=The%20file_shared%20event%20is%20sent,the%20files.info%20API%20method.) is sent to the Slack Bolt app. Firstly the file name is added as suggestion using the `FT.SUGADD` command in RediSearch, the file data like name, created, timestamp, mimetype, filetype, size, summary and image file path are added using the `JSON.SET` command.
 The file is then stored on the S3 bucket as an object with the key as the filename.
 
-```json
-file_data = {
-  "file_id": "F021THCTFJ7",
-  "file_name": "amazonpdf",
-  "created": 1620902755,
-  "timestamp": 1620902755,
-  "mimetype": "application/pdf",
-  "filetype": "pdf",
-  "user_id": "U01U4DV4C8J",
-  "size": 345142,
-  "summary": "",
-  "image_file_path": ""
-}
+```bash
+FT.SUGADD file-index "amazon-shareholder-letter.pdf" 1
 ```
+
+```bash
+JSON.SET amazonshareholderletterpdf . '{"file_id": "F022ACR81HP", "file_name": "amazonshareholderletterpdf", "created": "1620994889", "timestamp": "1620994889", "mimetype": "application/pdf", "filetype": "pdf", "user_id": "U01U4DV4C8J", "size": "345142", "summary": "", "image_file_path": ""}'
+```
+
+## /s3-get
 
 [![2](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/screenshots/2.gif)](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/screenshots/2.gif)
 
 [![3](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/screenshots/3.gif)](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/screenshots/3.gif)
 
-### /s3-get
+After fetching the filename from the **command["text"]** parameter we check if a the file exists using the `check_if_document_exists` function in `redisearch_connector.py` file. If the document doesn"t exist it returns false and nothing is done. If the file if found, using the `JSON.GET` command we get the file"s name and then download the file from S3. The downloaded file is sent back as a direct message in Slack.
 
-After fetching the filename from the **command['text']** parameter we check if a the file exists using the `check_if_document_exists` function in `redisearch_connector.py` file. If the document doesn't exist it returns false and nothing is done. If the file if found, using the `JSON.GET` command we get the file's name and then download the file from S3. The downloaded file is sent back as a direct message in Slack.
+```bash
+JSON.GET amazonshareholderletterpdf
+```
+
+## /s3-delete
 
 [![4](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/screenshots/4.gif)](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/screenshots/4.gif)
 
 [![5](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/screenshots/5.gif)](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/screenshots/5.gif)
 
-### /s3-delete
+This command permanently deletes a file from the S3 bucket. All you have to do is get the filename from **command["text']** parameter. The file data is deleted from RedisJson using the `JSON.DEL` command and it is removed from RediSearch's suggestions using the `FT.SUGDEL` command. Users are informed once the file is successfully deleted
 
-This command permanently deletes a file from the S3 bucket. All you have to do is get the filename from **command['text']** parameter. The file data is deleted from RedisJson using the `JSON.DEL` command and it is removed from RediSearch's suggestions using the `FT.SUGDEL` command. Users are informed once the file is successfully deleted
+```bash
+FT.SUGDEL file-index "amazon-shareholder-letter.pdf"
+```
+
+```bash
+JSON.DEL amazonshareholderletterpdf
+```
+
+## /s3-search
 
 [![6](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/screenshots/6.gif)](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/screenshots/6.gif)
 
 [![7](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/screenshots/7.gif)](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/screenshots/7.gif)
 
-### /s3-search
-
 This command opens up a modal inside of Slack with a search bar, the user is suggested the file names depending on whatever text is written in. For example if the bucket has documents like abc.csv, abcd.csv, abcdef.csv upon typing `abc` we get will get these 3 results as a list from the `FT.SEARCH` command. After the user chooses one of the file from the suggestion the file is downloaded and sent back to slack.
+
+```bash
+FT.SEARCH file-index "ama"
+```
+
+## /summarise-document
 
 [![8](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/screenshots/8.gif)](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/screenshots/8.gif)
 
 [![9](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/screenshots/9.gif)](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/screenshots/9.gif)
 
-### /summarise-document
-
 Using the summarise document command large documents can be converted into images
 
 1. Get the file name from the **command['text']** parameter.
 2. If the file if found, using the `JSON.GET` command we get the file's name.
+
+```bash
+JSON.GET amazonshareholderletterpdf
+```
+
 3. Download the pdf or png file locally from S3 bucket
 4. Extract the text using AWS Textract.
 5. The extracted text is summarised using Hugging face transformers summarisation pipeline. The text summary is also added back to RedisJSON document using `JSON.SET` command.
+
+```bash
+JSON.SET amazonshareholderletterpdf .summary ' Amazon has grown from having 158 employees to 614. We had just gone public at a split-adjusted stock price of $1. 50 per share.  In 1997, we hadnâ\x80\x99t invented prime, marketplace, alexa, or aws. If you want to be successful in business, you have to create more than you consume.  Your goal should be to create value for everyone you interact with. Stock prices are not about the past.  They are a prediction of future cash flows discounted back to the present.'
+```
+
 6. A post request is then sent to the /create-image on the nodejs backend with the file name and summary text.
 7. An image is generated using a base template
 8. The image that is returned is saved to the S3 bucket and sent back to Slack.
 9. The image URL is also added to the JSON document using `JSON.SET` command.
+
+```bash
+JSON.SET amazonshareholderletterpdf .file_path 'https://bucket-1234.s3.amazonaws.com/b8bac45f-7f69-4c28-a26e-9888d9771bed-image.png'
+```
 
 Here is the document summary for the [Amazon 2020 share holder letter](https://s2.q4cdn.com/299287126/files/doc_financials/2021/ar/Amazon-2020-Shareholder-Letter-and-1997-Shareholder-Letter.pdf)
 
@@ -149,5 +178,22 @@ Here is the document summary for the [Amazon 2020 share holder letter](https://s
 [![amazon-white](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/sample-templates/amazon-white.png)](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/sample-templates/amazon-blue.png)
 
 ## Basic Installation Instructions
+
+### Redis
+
+Redismod - a Docker image with select Redis Labs modules
+
+```bash
+    docker pull redislabs/redismod
+    docker run -p 6379:6379 redislabs/redismod
+```
+
+### Python Backend
+
+To get the Bolt app running locally follow the instructions at [python-backend/README.md](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/python-backend/README.md)
+
+### Nodejs Backend
+
+To get the Nodejs server running locally follow the instructions at [nodejs-backend/README.md](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/nodejs-backend/README.md)
 
 [Illustrations vector created by stories - www.freepik.com](https://www.freepik.com/vectors/illustrations)
