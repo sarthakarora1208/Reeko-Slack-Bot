@@ -44,13 +44,11 @@ Most of the time we don't know the exact name of the file we are looking for. We
 
 ## How is it built
 
-The Project is set up to work in a python3 virtual environment. The Slack app is built using [Bolt for Python](https://slack.dev/bolt-python/concepts) framework. For connecting to the AWS S3 bucket, AWS Comprehend and AWS Textract we use their respective boto3 clients. We connect to RedisSearch using the [Python RedisSearch Client](https://RedisSearch-py.readthedocs.io/en/v7.12.0/).
+The Project is set up to work in a python3 virtual environment. The Slack app is built using [Bolt for Python](https://slack.dev/bolt-python/concepts) framework. For connecting to the AWS S3 bucket and AWS Textract we use their respective boto3 clients.
 
 The Slack app listens to all sorts of events happening around your workspace — messages being posted, files being shared, users joining the team, and more. To listen for events, the slack app uses the Events API. To enable custom interactivity like the search modal we use the Blocks Kit.
 
-Slash commands perform a very simple task: they take whatever text you enter after the command itself (along with some other predefined values), send it to a URL, then accept whatever the script returns and posts it as a Slackbot message to the person who issued the command or in a public channel. Here are the 5 slash commands we use to interact with the AWS S3 bucket.
-
-## Redis Usage
+Slash commands perform a very simple task: they take whatever text you enter after the command itself (along with some other predefined values), send it to a URL, then accept whatever the script returns and posts it as a Slackbot message to the person who issued the command or in a public channel.
 
 We have used 2 Redis Modules.
 
@@ -144,7 +142,7 @@ Using the summarise document command large documents can be converted into image
 8. The image that is returned is saved to the S3 bucket and sent back to Slack.
 9. The image URL is also added to the JSON document using `JSON.SET` command.
 
-Here are a few examples of the images with document summary for the [Amazon 2020 share holder letter](https://s2.q4cdn.com/299287126/files/doc_financials/2021/ar/Amazon-2020-Shareholder-Letter-and-1997-Shareholder-Letter.pdf)
+Here is the document summary for the [Amazon 2020 share holder letter](https://s2.q4cdn.com/299287126/files/doc_financials/2021/ar/Amazon-2020-Shareholder-Letter-and-1997-Shareholder-Letter.pdf)
 
 [![amazon-black](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/sample-templates/amazon-black.png)](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/sample-templates/amazon-black.png)
 [![amazon-blue](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/sample-templates/amazon-blue.png)](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/sample-templates/amazon-blue.png)
