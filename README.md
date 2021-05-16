@@ -27,7 +27,7 @@ With 10+ million daily active users and millions of file shared everyday, Slack 
   - [File Searching](#File-Searching)
 - [Tech Stack](#Tech-Stack)
 - [Architecture Diagram](#Architecture-Diagram)
-- [How it is built & Redis Usage](#How-it-is-built-&-Redis-Usage)
+- [Redis Usage](#Redis-Usage)
 
   - [File shared on Slack](#File-shared-on-Slack)
   - [/s3-get filename](#/s3-get-filename)
@@ -64,7 +64,7 @@ Most of the time we don't know the exact name of the file we are looking for. We
 
 [![Slack-Bot-Architecture](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/Reeko-Slack-Bot-Architecture-Diagram.png)](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/Reeko-Slack-Bot-Architecture-Diagram.png)
 
-## How it is built & Redis Usage
+## Redis Usage
 
 The Slack app is built using [Bolt for Python](https://slack.dev/bolt-python/concepts) framework. For connecting to the AWS S3 bucket and AWS Textract we use their respective boto3 clients.
 
