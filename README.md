@@ -18,13 +18,35 @@ With 10+ million daily active users and millions of file shared everyday, Slack 
 
 [![summarise_document](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/Summarise_Document.gif)](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/Summarise_Document.gif)
 
+## Table of Contents
+
+- [Reeko Slak Bot](#Reeko-Slack-Bot)
+- [Features](#Features)
+  - [Document Summarisation](#Document-Summarisation)
+  - [Connecting Slack to AWS S3](#Connecting-Slack-to-AWS-S3)
+  - [File Searching](#File-Searching)
+- [Tech Stack](#Tech-Stack)
+- [Architecture Diagram](#Architecture-Diagram)
+- [How it is built & Redis Usage](#How-it-is-built-&-Redis-Usage)
+
+  - [File shared on Slack](#File-shared-on-Slack)
+  - [/s3-get filename](#/s3-get-filename)
+  - [/s3-delete filename](#/s3-delete-filename)
+  - [/s3-search](#/s3-search)
+  - [/summarise-document filename](#/summarise-document-filename)
+
+- [Basic Installation Instructions](#Basic-Installation-Instructions)
+  - [Redis](#Redis)
+  - [Python Backend](#Python-Backend)
+  - [Nodejs Backend](#Nodejs-Backend)
+
 ## Features
 
 ### Document Summarisation
 
 Document Summarization is the task of rewriting a document into its shorter form while still retaining its important content. With the help of the `/summarise-document filename` you can summarise any document. Everything from minutes of the meeting to UNICEF can be shortened.
 
-### File Syncing and Data Backup inside Slack
+### File Syncing between Slack and AWS S3
 
 Reeko Slack Bot enables users to access files in your S3 bucket directly from Slack using _Slash commands_. By using simple commands like `/s3-get filename` and `/s3-delete filename` we can find or delete files. Whenever a new file is shared on any public channel it is automatically added to the S3 test bucket, ensuring that all your slack files are safe in case a teammate accidently deletes a file that you need.
 
@@ -42,13 +64,13 @@ Most of the time we don't know the exact name of the file we are looking for. We
 
 [![Slack-Bot-Architecture](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/Reeko-Slack-Bot-Architecture-Diagram.png)](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/Reeko-Slack-Bot-Architecture-Diagram.png)
 
-## How is it built
+## How it is built & Redis Usage
 
-The Project is set up to work in a python3 virtual environment. The Slack app is built using [Bolt for Python](https://slack.dev/bolt-python/concepts) framework. For connecting to the AWS S3 bucket and AWS Textract we use their respective boto3 clients.
+The Slack app is built using [Bolt for Python](https://slack.dev/bolt-python/concepts) framework. For connecting to the AWS S3 bucket and AWS Textract we use their respective boto3 clients.
 
 The Slack app listens to all sorts of events happening around your workspace — messages being posted, files being shared, users joining the team, and more. To listen for events, the slack app uses the Events API. To enable custom interactivity like the search modal we use the Blocks Kit.
 
-Slash commands perform a very simple task: they take whatever text you enter after the command itself (along with some other predefined values), send it to a URL, then accept whatever the script returns and posts it as a Slackbot message to the person who issued the command or in a public channel.
+Slash commands perform a very simple task: they take whatever text you enter after the command itself (along with some other predefined values), send it to a URL, then accept whatever the script returns and posts it as a Slackbot message to the person who issued the command or in a public channel. We have a set of 4 slash commands that make our slackbot.
 
 We have used 2 Redis Modules.
 
@@ -99,7 +121,7 @@ FT.SUGADD file-index "amazon-shareholder-letter.pdf" 1
 JSON.SET amazonshareholderletterpdf . '{"file_id": "F022ACR81HP", "file_name": "amazonshareholderletterpdf", "created": "1620994889", "timestamp": "1620994889", "mimetype": "application/pdf", "filetype": "pdf", "user_id": "U01U4DV4C8J", "size": "345142", "summary": "", "image_file_path": ""}'
 ```
 
-## /s3-get
+### /s3-get filename
 
 [![2](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/screenshots/2.gif)](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/screenshots/2.gif)
 
@@ -111,7 +133,7 @@ After fetching the filename from the **command["text"]** parameter we check if t
 JSON.GET amazonshareholderletterpdf
 ```
 
-## /s3-delete
+### /s3-delete filename
 
 [![4](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/screenshots/4.gif)](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/screenshots/4.gif)
 
@@ -127,7 +149,7 @@ FT.SUGDEL file-index "amazon-shareholder-letter.pdf"
 JSON.DEL amazonshareholderletterpdf
 ```
 
-## /s3-search
+### /s3-search
 
 [![6](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/screenshots/6.gif)](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/screenshots/6.gif)
 
@@ -139,7 +161,7 @@ This command opens up a modal inside of Slack with a search bar, the user is sug
 FT.SEARCH file-index "ama"
 ```
 
-## /summarise-document
+### /summarise-document filename
 
 [![8](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/screenshots/8.gif)](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/screenshots/8.gif)
 
