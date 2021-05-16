@@ -14,7 +14,7 @@
 Video Link: [https://youtu.be/XYbWfOSYmyM](https://youtu.be/XYbWfOSYmyM)
 <br/>
 
-With 10+ million daily active users and millions of file shared everyday Slack is where collaboration happens. Using Reeko you can find files, download them or delete them permanently from S3 bucket without leaving Slack or writing a single line of code. Everyday so many files are shared on Slack and we may loose track of the file we need. Using advanced Natural Language Processing (NLP) and Natural Language Understanding (NLU) techniques, Reeko extracts all the text from the long and boring documents outputs the summary as an image. This way you don't even have to open the document to know what is inside of it!. Most of the time we don't know the exact name of the file we are looking for in and we need autocomplete to figure out the exact file name for us, Reeko has a file search engine built right into Slack that helps you find any file on your S3 bucket.
+With 10+ million daily active users and millions of file shared everyday, Slack is where collaboration happens. Using Reeko you can find files, download them or delete them permanently from S3 bucket without leaving Slack or writing a single line of code. Everyday so many files are shared on Slack and we may lose track of the file we need. Using advanced Natural Language Processing (NLP) and Natural Language Understanding (NLU) techniques, Reeko extracts all the text from the long and boring documents and outputs the summary as an image. This way you don't even have to open the document to know what is inside of it!. Most of the time we don't know the exact name of the file we are looking for and we need autocomplete to figure out the exact file name for us. Reeko has a file search engine built right into Slack that helps you find any file on your S3 bucket.
 
 [![summarise_document](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/Summarise_Document.gif)](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/Summarise_Document.gif)
 
@@ -35,7 +35,7 @@ Most of the time we don't know the exact name of the file we are looking for. We
 ## Tech Stack
 
 - [Slack Block Kit](https://api.slack.com/block-kit): A UI framework for Slack apps that offers a balance of control and flexibility when building experiences.
-- [Python](https://www.python.org/): The [redisjson-py](https://github.com/RedisJSON/redisjson-py) and [redisearch-py](https://github.com/RediSearch/redisearch-py) libraries are used to connect to [**Redis**](https://redis.io) and [Slack Bolt For Python](https://slack.dev/bolt-python/concepts) is a foundational framework that makes it easier to build Slack apps is used to build the chat bot.
+- [Python](https://www.python.org/): The [redisjson-py](https://github.com/RedisJSON/redisjson-py) and [redisearch-py](https://github.com/RediSearch/redisearch-py) libraries are used to connect to [**Redis**](https://redis.io) and [Slack Bolt For Python](https://slack.dev/bolt-python/concepts) is a foundational framework that we have used to handle the requests from the Slack Workspace.
 - [Nodejs](https://nodejs.org/en/): Responsible for Image Generation
 
 ## Architecture Diagram
@@ -67,7 +67,7 @@ class RedisSearchConnector():
         self.ac = AutoCompleter(self.index_name)
 ```
 
-Initialisiing RedisJSON in redisjson_connector.py
+Initialising RedisJSON in redisjson_connector.py
 
 ```py
 from rejson import Client, Path
@@ -105,7 +105,7 @@ JSON.SET amazonshareholderletterpdf . '{"file_id": "F022ACR81HP", "file_name": "
 
 [![3](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/screenshots/3.gif)](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/screenshots/3.gif)
 
-After fetching the filename from the **command["text"]** parameter we check if a the file exists using the `check_if_document_exists` function in `redisearch_connector.py` file. If the document doesn"t exist it returns false and nothing is done. If the file if found, using the `JSON.GET` command we get the file"s name and then download the file from S3. The downloaded file is sent back as a direct message in Slack.
+After fetching the filename from the **command["text"]** parameter we check if the document exists. If the document doesn’t exist it returns false and nothing is done. If the file is found, using the `JSON.GET` command we get the file’s name and then download it from the S3 bucket. The downloaded file is sent back as a direct message in Slack.
 
 ```bash
 JSON.GET amazonshareholderletterpdf
@@ -148,7 +148,7 @@ FT.SEARCH file-index "ama"
 Using the summarise document command large documents can be converted into images
 
 1. Get the file name from the **command['text']** parameter.
-2. If the file if found, using the `JSON.GET` command we get the file's name.
+2. If the file is found, using the `JSON.GET` command we get the file's name.
 
 ```bash
 JSON.GET amazonshareholderletterpdf
@@ -156,7 +156,7 @@ JSON.GET amazonshareholderletterpdf
 
 3. Download the pdf or png file locally from S3 bucket
 4. Extract the text using AWS Textract.
-5. The extracted text is summarised using Hugging face transformers summarisation pipeline. The text summary is also added back to RedisJSON document using `JSON.SET` command.
+5. The extracted text is summarised using Hugging face transformers summarisation pipeline. The text summary is also added back to the JSON document using `JSON.SET` command.
 
 ```bash
 JSON.SET amazonshareholderletterpdf .summary ' Amazon has grown from having 158 employees to 614. We had just gone public at a split-adjusted stock price of $1. 50 per share.  In 1997, we hadnâ\x80\x99t invented prime, marketplace, alexa, or aws. If you want to be successful in business, you have to create more than you consume.  Your goal should be to create value for everyone you interact with. Stock prices are not about the past.  They are a prediction of future cash flows discounted back to the present.'
@@ -171,7 +171,7 @@ JSON.SET amazonshareholderletterpdf .summary ' Amazon has grown from having 158 
 JSON.SET amazonshareholderletterpdf .file_path 'https://bucket-1234.s3.amazonaws.com/b8bac45f-7f69-4c28-a26e-9888d9771bed-image.png'
 ```
 
-Here is the document summary for the [Amazon 2020 share holder letter](https://s2.q4cdn.com/299287126/files/doc_financials/2021/ar/Amazon-2020-Shareholder-Letter-and-1997-Shareholder-Letter.pdf)
+Here is the document summary for the [Amazon 2020 shareholder letter](https://s2.q4cdn.com/299287126/files/doc_financials/2021/ar/Amazon-2020-Shareholder-Letter-and-1997-Shareholder-Letter.pdf)
 
 [![amazon-black](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/sample-templates/amazon-black.png)](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/sample-templates/amazon-black.png)
 [![amazon-blue](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/sample-templates/amazon-blue.png)](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/sample-templates/amazon-blue.png)
