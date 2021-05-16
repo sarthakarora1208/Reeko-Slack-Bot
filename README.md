@@ -30,10 +30,10 @@ With 10+ million daily active users and millions of file shared everyday, Slack 
 - [Redis Usage](#Redis-Usage)
 
   - [File shared on Slack](#File-shared-on-Slack)
-  - [/s3-get filename](#/-s3-get-filename)
-  - [/s3-delete filename](#/s3-delete-filename)
-  - [/s3-search](#/s3-search)
-  - [/summarise-document filename](#/summarise-document-filename)
+  - [/s3-get filename](#s3-get-filename)
+  - [/s3-delete filename](#s3-delete-filename)
+  - [/s3-search](#s3-search)
+  - [/summarise-document filename](#summarise-document-filename)
 
 - [Basic Installation Instructions](#Basic-Installation-Instructions)
   - [Redis](#Redis)
