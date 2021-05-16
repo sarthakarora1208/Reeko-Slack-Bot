@@ -20,7 +20,7 @@ With 10+ million daily active users and millions of file shared everyday, Slack 
 
 ## Table of Contents
 
-- [Reeko Slak Bot](#Reeko-Slack-Bot)
+- [Reeko Slack Bot](#Reeko-Slack-Bot)
 - [Features](#Features)
   - [Document Summarisation](#Document-Summarisation)
   - [Connecting Slack to AWS S3](#Connecting-Slack-to-AWS-S3)
