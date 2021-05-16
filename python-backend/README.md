@@ -1,3 +1,5 @@
+# Python Installation Instructions
+
 ### Requirements
 
 - [Python 3.6+](#Python-3.6+)
@@ -7,10 +9,9 @@
 
 ### Getting Started
 
----
-
-<br/>
 <img src="../photos/python/Python_logo_and_wordmark.svg" height="100" />
+
+---
 
 ### Python 3.6+
 
@@ -34,12 +35,9 @@ source env/bin/activate
 pip3 install -r requirements.txt
 ```
 
-<br/>
+<img src="../photos/ngrok/ngrok.png" height="100" />
 
 ---
-
-<br/>
-<img src="../photos/ngrok/ngrok.png" height="100" />
 
 ### ngrok
 
@@ -48,12 +46,10 @@ pip3 install -r requirements.txt
 To develop locally we'll be using ngrok, which allows you to expose a public endpoint that Slack can use to send your app events. If you haven't already, [install ngrok from their website](https://ngrok.com/download) .
 
 [Read more about ngrok](https://api.slack.com/tutorials/tunneling-with-ngrok)
-<br/>
+
+<img src="../photos/aws/aws.png" height="100">
 
 ---
-
-<br/>
-<img src="../photos/aws/aws.png" height="100">
 
 ### AWS Account
 
@@ -71,11 +67,9 @@ BUCKET_NAME="YOUR_BUCKET_NAME"
 
 ```
 
-<br/>
+<img src="../photos/slack/Slack_Technologies_Logo.svg" height="100">
 
 ---
-
-<br/>
 
 ### Slack
 
